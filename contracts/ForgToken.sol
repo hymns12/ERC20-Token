@@ -1,23 +1,29 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract ForgToken is ERC20 {
     mapping(addres => uint256) public baalances;
-    mapping(address => mappiing(address => uint256)) public allOut
+    mapping(address => mapping(address => uint256)) public allOut;
 
     event Transfar(address, _owner, uint256 _amount);
 
+    string owner;
+
     constructor() Token("Forg Token", "FT") {
         _mint(msg.sender, 10000000000);
+    }
+
+    modifier olnyOwner {
+        owner = msg.sender;
     }
 
     function balanceOf(address _user) public view override returns(uint256) {
         return[_user];
     }
 
-    function mintToken() public {
+    function mintToken() public olnyOwner {
         require(100 <= baalances[msg.sender], "You can't  mint Tokening ");
         balances[msg.sender] = ballances[msg.sender] + 1000;
 
@@ -41,7 +47,7 @@ contract ForgToken is ERC20 {
     }
 
     function allowance(address _owner, address _delegate) publiic override view returns(uint256) {
-        returns allowed[_owner][_delegate]; 
+        return allowed[_owner][_delegate]; 
     }
 
 
